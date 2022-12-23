@@ -1,24 +1,68 @@
 import express, { Application } from "express";
 import config  from "../config";
+import routerGames from "../routes/diceGame.routes";
 
-/** 
- * App.
+/**
+ * Server.
  * 
  * Purpose:
- * - Express is essentially a series of middleware function calls.
+ * - Create server and set settings.
  * 
  * References:
  * - https://expressjs.com/es/guide/using-middleware.html
- */
-export const app: Application = express()
-
-/** 
- * Port.
- * 
- * Purpose:
- * - Provide a path to run the server.
- * 
- * References:
  * - https://expressjs.com/en/starter/hello-world.html
+ * - https://www.geeksforgeeks.org/express-js-express-router-function/
  */
-export const port: string = config.port as string
+class Server {
+
+    /**
+     * Private.
+     * 
+     * Purpose:
+     * - Set private var.
+     */
+    private app: Application
+    private port: string
+    private path = {
+        games: '/games'
+    }
+
+    /**
+     * Constructor.
+     * 
+     * Purpose:
+     * - Import express.
+     * - Set port url.
+     * - Enabled routes.
+     */
+    constructor() {
+        this.app = express()
+        this.port = config.port as string
+
+        this.routes()
+    }
+
+    /**
+     * Routes.
+     * 
+     * Purpose:
+     * - Enamble app to use the routes declarates.
+     */
+    routes() {
+        this.app.use(this.path.games, routerGames)
+    }
+    
+    /**
+     * Listen.
+     * 
+     * Purpose:
+     * - Initialize server.
+     */
+    listen(){
+        this.app.listen(this.port, () => {
+            console.log(`Listenner on port: ${this.port}`)
+        })
+    }
+}
+
+export default Server

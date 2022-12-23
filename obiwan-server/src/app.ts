@@ -1,7 +1,6 @@
-import {port, app} from "./models/Server";
-
+import Server from "./models/Server"
 /** 
- * Server.
+ * Server listen.
  * 
  * Purpose:
  * - Initialize server.
@@ -9,7 +8,7 @@ import {port, app} from "./models/Server";
  * References:
  * - https://stackoverflow.com/questions/62096269/cant-run-my-node-js-typescript-project-typeerror-err-unknown-file-extension
  */
-app.listen(port, () => {
-    console.log(`Listenner on port: ${port}`)
-})
+const server = new Server()
+
+server.listen()
 

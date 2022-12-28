@@ -1,5 +1,7 @@
 import { model, Schema } from "mongoose";
-import { IPlayer } from "../interfaces/Iplayer";
+import { IPlayer } from "../interfaces/IPlayer";
+import { IPlayerModel } from "../interfaces/IPlayerMethod";
+import bcryptjs from "bcryptjs"
 
 /** 
  * Player schema.
@@ -51,4 +53,35 @@ const PLayerSchema = new Schema({
     }
 )
 
-export const Player = model<IPlayer>("Player", PLayerSchema)
+/** 
+ * Encrypt password.
+ * 
+ * Purpose:
+ * - Encrypt password provider by the user.
+ * 
+ * References:
+ * - https://openbase.com/js/bcryptjs/documentation
+ * 
+ * TODO: move this function to folder "helpers".
+ */
+PLayerSchema.static("encryptPassword", async (password: string) => {
+    const salt = await bcryptjs.genSalt(10)
+    return await bcryptjs.hash(password, salt)
+})
+
+/** 
+ * Compare Password.
+ * 
+ * Purpose:
+ * - Compare password hash encrypted.
+ * 
+ * References:
+ * - https://openbase.com/js/bcryptjs/documentation
+ * 
+ * TODO: move this function to folder "helpers".
+ */
+PLayerSchema.static("comparePassword", async (password: string, receivedPassword: string) => {
+    return await bcryptjs.compare(password, receivedPassword)
+})
+
+export const Player = model<IPlayer, IPlayerModel>("Player", PLayerSchema)

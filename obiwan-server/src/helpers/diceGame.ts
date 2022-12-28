@@ -98,6 +98,34 @@ class RollGame {
 
         return worstPlayer
     }
+
+    /**
+     * deleteGames.
+     * 
+     * Purpose:
+     * - Delete games.
+     */
+    async deleteGames() {
+        const player = await Player.findById({_id: this.id}) as IPlayer
+
+        player.totalGames = 0
+        player.gamesWon = 0
+        player.wonRate = 0
+        player.playHistory = []
+
+        await player.save()
+
+        return {
+            id: player._id,
+            firstName: player.firstName,
+            lastName: player.lastName,
+            email: player.email,
+            totalGames: player.totalGames,
+            gamesWon: player.gamesWon,
+            wonRate: player.wonRate,
+            playHistory: player.playHistory
+        }
+    }
 }
 
 export default RollGame

@@ -61,7 +61,7 @@ export const generalRanking = async (req: Request, res: Response) => {
  */
 export const getBetterPlayer = async (req: Request, res: Response) => {
     try {
-        const betterPlayer = await RollGame.getBetterPlayer
+        const betterPlayer = await RollGame.getBetterPlayer()
         
         res.status(201).json({
             betterPlayer
@@ -84,7 +84,7 @@ export const getBetterPlayer = async (req: Request, res: Response) => {
  */
 export const getWorstPlayer =  async (req: Request, res: Response) => {
     try {
-        const worstPlayer = await RollGame.getWorstPlayer
+        const worstPlayer = await RollGame.getWorstPlayer()
         
         res.status(201).json({
             worstPlayer
@@ -105,10 +105,20 @@ export const getWorstPlayer =  async (req: Request, res: Response) => {
  * References:
  * - https://dev.to/ericchapman/nodejs-express-part-5-routes-and-controllers-55d3
  */
-export const deleteGames = (req: Request, res: Response) => {
+export const deleteGames = async (req: Request, res: Response) => {
     try {
-        
+        const id = req.params.id
+        const player = await new RollGame(id)
+
+        const deleteGames = player.deleteGames
+
+        res.status(201).json({
+            msg: "Player games deleted successfully!",
+            deleteGames
+        })
     } catch (error) {
-        
+        res.status(400).json({
+            msn: "The ID entered is not valid!"
+        })
     }
 }

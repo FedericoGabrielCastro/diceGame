@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { generalRanking, playerRollDice, getWorstPlayer, getBetterPlayer, deleteGames } from "../controllers/diceGame.controller"; 
+import { validateToken } from "../middllewares/validateJWT";
 
 /** 
  * router
@@ -18,7 +19,7 @@ const router = Router()
  * Purpose:
  * - *POST => User roll dice.
  */
-router.post("/player/:id", playerRollDice)
+router.post("/player/:id", validateToken, playerRollDice)
 
 /** 
  * generalRanking.
@@ -26,7 +27,7 @@ router.post("/player/:id", playerRollDice)
  * Purpose:
  * - *GET => Get ranking game.
  */
-router.get("/ranking", generalRanking)
+router.get("/ranking", validateToken, generalRanking)
 
 /** 
  * getBetterPlayer.
@@ -34,7 +35,7 @@ router.get("/ranking", generalRanking)
  * Purpose:
  * - *GET => Get best player in game.
  */
-router.get("/better-player", getBetterPlayer)
+router.get("/better-player", validateToken, getBetterPlayer)
 
 /** 
  * getWorstPlayer
@@ -42,7 +43,7 @@ router.get("/better-player", getBetterPlayer)
  * Purpose:
  * - *GET => Get worst player in game.
  */
-router.get("/worst-player", getWorstPlayer)
+router.get("/worst-player", validateToken, getWorstPlayer)
 
 
 /** 
@@ -51,6 +52,6 @@ router.get("/worst-player", getWorstPlayer)
  * Purpose:
  * - *DELETE => delete game id.
  */
-router.delete("/delete/:id", deleteGames)
+router.delete("/delete/:id", validateToken, deleteGames)
 
 export default router

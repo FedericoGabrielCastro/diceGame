@@ -15,7 +15,7 @@ export const playerRollDice = async (req: Request, res: Response) => {
     try {
         const id = req.params.id
         const game = await new RollGame(id)
-        const playerRollDices = await game.playerRollDice
+        const playerRollDices = await game.playerRollDice()
 
         res.status(201).json({
             playerRollDices
@@ -110,7 +110,7 @@ export const deleteGames = async (req: Request, res: Response) => {
         const id = req.params.id
         const player = await new RollGame(id)
 
-        const deleteGames = player.deleteGames
+        const deleteGames = await player.deleteGames()
 
         res.status(201).json({
             msg: "Player games deleted successfully!",

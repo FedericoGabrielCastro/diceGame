@@ -49,6 +49,17 @@ class RollGame {
         player.wonRate = parseFloat(((player.gamesWon / player.totalGames) * 100).toFixed(2)) // set rate win player.
 
         await player.save()
+        
+        return {
+            id: player._id,
+            firstName: player.firstName,
+            lastName: player.lastName,
+            email: player.email,
+            totalGames: player.totalGames,
+            gamesWon: player.gamesWon,
+            wonRate: player.wonRate,
+            playHistory: player.playHistory
+        }
     }
 
     /**

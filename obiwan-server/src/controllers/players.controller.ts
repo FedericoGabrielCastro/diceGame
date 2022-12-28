@@ -34,9 +34,15 @@ export const getAllPlayers = async (req: Request, res: Response) => {
  * References:
  * - https://dev.to/ericchapman/nodejs-express-part-5-routes-and-controllers-55d3
  */
-export const getOnePlayer = (req: Request, res: Response) => {
+export const getOnePlayer = async (req: Request, res: Response) => {
     try {
-        
+        const id = req.params.id
+        const player = await new GetPlayer(id)
+        const getPlayer = await player.getOnePLayer()
+
+        res.status(201).json({
+            getPlayer
+        })
     } catch (error) {
         console.error(error)
         res.status(500).json({

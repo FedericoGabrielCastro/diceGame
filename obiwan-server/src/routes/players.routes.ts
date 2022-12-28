@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getAllPlayers } from "../controllers/players.controller";
+import { getAllPlayers, getOnePlayer } from "../controllers/players.controller";
 
 /** 
  * router
@@ -19,5 +19,13 @@ const router = Router()
  * - *GET => Get all players.
  */
 router.get("/get-all-players", getAllPlayers)
+
+/** 
+ * getOnePlayer .
+ * 
+ * Purpose:
+ * - *GET => Get one players.
+ */
+router.get("/get-player/:id", getOnePlayer)
 
 export default router

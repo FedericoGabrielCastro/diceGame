@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getAllPlayers, getOnePlayer, updateName } from "../controllers/players.controller";
+import { getAllPlayers, getOnePlayer, updateName, deletePlayer } from "../controllers/players.controller";
 
 /** 
  * router
@@ -35,5 +35,13 @@ router.get("/get-player/:id", getOnePlayer)
  * - *PUT => Update player firstName and lastName.
  */
 router.put("/update-player/:id", updateName)
+
+/** 
+ * deletePlayer.
+ * 
+ * Purpose:
+ * - *DELETE => Delete player.
+ */
+router.delete("/delete-player/:id", deletePlayer)
 
 export default router

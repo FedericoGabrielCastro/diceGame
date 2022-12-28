@@ -61,12 +61,12 @@ export const getOnePlayer = async (req: Request, res: Response) => {
  * References:
  * - https://dev.to/ericchapman/nodejs-express-part-5-routes-and-controllers-55d3
  */
-export const updateName = (req: Request, res: Response) => {
+export const updateName = async (req: Request, res: Response) => {
     try {
         const id = req.params.id
         const { firstName, lastName } = req.body
         
-        const updatePlayerName = new UpdatePlayerName(id, firstName, lastName)
+        const updatePlayerName = await new UpdatePlayerName(id, firstName, lastName)
 
         res.status(201).json({
             msg: "Player updated",
@@ -89,13 +89,21 @@ export const updateName = (req: Request, res: Response) => {
  * References:
  * - https://dev.to/ericchapman/nodejs-express-part-5-routes-and-controllers-55d3
  */
-export const deletePlayer = (req: Request, res: Response) => {
+export const deletePlayer = async (req: Request, res: Response) => {
     try {
+        const id = req.params.id
+        const player = await new GetPlayer(id)
         
+        player.getAndDelete()
+
+        res.status(201).json({
+            msg: "Player deleted",
+            player
+        })
     } catch (error) {
         console.error(error)
-        res.status(500).json({
-            msg: "Error 500 - Internal Server Error"
+        res.status(400).json({
+            msg: "Player does't exist"
         })
     }
 }

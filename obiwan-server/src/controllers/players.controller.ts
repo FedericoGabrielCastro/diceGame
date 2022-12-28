@@ -1,4 +1,5 @@
 import { Request, Response } from "express"
+import GetPlayer from "../helpers/getPlayers"
 
 /** 
  * getAllPlayer.
@@ -9,11 +10,18 @@ import { Request, Response } from "express"
  * References:
  * - https://dev.to/ericchapman/nodejs-express-part-5-routes-and-controllers-55d3
  */
-export const getAllPlayer = (req: Request, res: Response) => {
+export const getAllPlayers = async (req: Request, res: Response) => {
     try {
-        
+        const getAllPlayer = await GetPlayer.getAllPlayers()
+
+        res.status(201).json({
+            getAllPlayer
+        })
     } catch (error) {
-        
+        console.error(error)
+        res.status(500).json({
+            msg: "Error 500 - Internal Server Error"
+        })
     }
 }
 
@@ -30,7 +38,10 @@ export const getOnePlayer = (req: Request, res: Response) => {
     try {
         
     } catch (error) {
-
+        console.error(error)
+        res.status(500).json({
+            msg: "Error 500 - Internal Server Error"
+        })
     }
 }
 
@@ -47,7 +58,10 @@ export const updateName = (req: Request, res: Response) => {
     try {
         
     } catch (error) {
-
+        console.error(error)
+        res.status(500).json({
+            msg: "Error 500 - Internal Server Error"
+        })
     }
 }
 
@@ -64,6 +78,9 @@ export const deletePlayer = (req: Request, res: Response) => {
     try {
         
     } catch (error) {
-
+        console.error(error)
+        res.status(500).json({
+            msg: "Error 500 - Internal Server Error"
+        })
     }
 }

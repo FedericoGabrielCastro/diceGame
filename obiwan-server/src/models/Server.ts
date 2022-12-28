@@ -6,6 +6,7 @@ import { connectDB } from "../db/config";
 
 import routerGames from "../routes/diceGame.routes";
 import routerError404 from "../routes/error404.routes"
+import routerAuth from "../routes/auth.routes"
 
 /**
  * Server.
@@ -47,9 +48,9 @@ class Server {
     constructor() {
         this.app = express()
         this.port = config.port as string
+        this.middlewares()
         this.dbConnect()
         this.routes()
-        this.middlewares()
     }
 
     /**
@@ -87,6 +88,7 @@ class Server {
      */
     routes() {
         this.app.use(this.path.games, routerGames),
+        this.app.use(this.path.auth, routerAuth),
         this.app.use(this.path.error404, routerError404)
     }
     

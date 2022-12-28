@@ -1,5 +1,6 @@
 import express, { Application } from "express";
 import config  from "../config";
+import cors from "cors"
 
 import { connectDB } from "../db/config";
 
@@ -46,6 +47,7 @@ class Server {
         this.port = config.port as string
         this.dbConnect()
         this.routes()
+        this.middlewares()
     }
 
     /**
@@ -56,6 +58,23 @@ class Server {
      */
     async dbConnect() {
         await connectDB()
+    }
+
+    /**
+     * Middlewares.
+     * 
+     * Purpose:
+     * - Use middlwares in node.
+     * - Express.json => returns a json in web view.
+     * - cors => Allow permission
+     * 
+     * References:
+     * - https://www.geeksforgeeks.org/express-js-express-json-function/
+     * - https://expressjs.com/en/resources/middleware/cors.html
+     */
+    middlewares(){
+        this.app.use(express.json())
+        this.app.use(cors())
     }
 
     /**

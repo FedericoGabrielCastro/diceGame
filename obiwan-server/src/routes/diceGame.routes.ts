@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { test } from "../controllers/diceGame.controller";
+import { generalRanking, playerRollDice, getWorstPlayer, getBetterPlayer, deleteGames } from "../controllers/diceGame.controller"; 
 
 /** 
  * router
@@ -12,6 +12,45 @@ import { test } from "../controllers/diceGame.controller";
  */
 const router = Router()
 
-router.get("/", test)
+/** 
+ * PlayerRollDice.
+ * 
+ * Purpose:
+ * - *POST => User roll dice.
+ */
+router.post("/player/:id", playerRollDice)
+
+/** 
+ * generalRanking.
+ * 
+ * Purpose:
+ * - *GET => Get ranking game.
+ */
+router.get("/ranking", generalRanking)
+
+/** 
+ * getBetterPlayer.
+ * 
+ * Purpose:
+ * - *GET => Get best player in game.
+ */
+router.get("/better-player", getBetterPlayer)
+
+/** 
+ * getWorstPlayer
+ * 
+ * Purpose:
+ * - *GET => Get worst player in game.
+ */
+router.get("/worst-player", getWorstPlayer)
+
+
+/** 
+ * deleteGames.
+ * 
+ * Purpose:
+ * - *DELETE => delete game id.
+ */
+router.delete("/delete/:id", deleteGames)
 
 export default router

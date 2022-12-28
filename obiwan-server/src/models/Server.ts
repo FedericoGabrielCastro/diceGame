@@ -30,7 +30,9 @@ class Server {
     private port: string
     private path = {
         error404: "*",
-        games: '/games'
+        games: "/games",
+        auth: "/auth",
+        players: "/players"
     }
 
     /**

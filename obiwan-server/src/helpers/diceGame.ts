@@ -64,11 +64,22 @@ class RollGame {
     }
 
     /**
-     * generalRanking.
+     * getBetterPlayer.
      * 
      * Purpose:
-     * - Getting general ranking game.
+     * - Get better player.
      */
+    static async getBetterPlayer() {
+        const players = await Player.find({})
+        let max = 0
+        players.forEach(player => {
+            player.wonRate > max ? max = player.wonRate : null
+        })
+
+        const betterPlayer = await Player.findOne({wonRate: max})
+
+        return betterPlayer
+    }
 }
 
 export default RollGame

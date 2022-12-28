@@ -82,11 +82,17 @@ export const getBetterPlayer = async (req: Request, res: Response) => {
  * References:
  * - https://dev.to/ericchapman/nodejs-express-part-5-routes-and-controllers-55d3
  */
-export const getWorstPlayer = (req: Request, res: Response) => {
+export const getWorstPlayer =  async (req: Request, res: Response) => {
     try {
+        const worstPlayer = await RollGame.getWorstPlayer
         
+        res.status(201).json({
+            worstPlayer
+        })
     } catch (error) {
-        
+        res.status(500).json({
+            msn: "Error 500 - Internal Server Error"
+        })
     }
 }
 

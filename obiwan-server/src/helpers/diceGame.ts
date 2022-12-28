@@ -80,6 +80,24 @@ class RollGame {
 
         return betterPlayer
     }
+
+        /**
+     * getWorstPlayer.
+     * 
+     * Purpose:
+     * - Get worst player.
+     */
+    static async getWorstPlayer() {
+        const players = await Player.find({})
+        let min = 100
+        players.forEach(player => {
+            player.wonRate < min ? min = player.wonRate : null
+        })
+
+        const worstPlayer = await Player.findOne({wonRate: min})
+
+        return worstPlayer
+    }
 }
 
 export default RollGame

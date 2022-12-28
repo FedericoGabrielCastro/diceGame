@@ -29,5 +29,6 @@ if(envFound.error) {
  * - Export enviroment variable.
  */
 export default {
-    port: process.env.PORT
+    port: process.env.PORT,
+    mongoDB: process.env.MONGODB_URI
 }

@@ -1,5 +1,8 @@
 import express, { Application } from "express";
 import config  from "../config";
+
+import { connectDB } from "../db/config";
+
 import routerGames from "../routes/diceGame.routes";
 
 /**
@@ -34,12 +37,23 @@ class Server {
      * - Import express.
      * - Set port url.
      * - Enabled routes.
+     * - Connect with mongodb
      */
     constructor() {
         this.app = express()
         this.port = config.port as string
-
+        this.dbConnect()
         this.routes()
+    }
+
+    /**
+     * dbConnect.
+     * 
+     * Purpose:
+     * - Connect mongodb. 
+     */
+    async dbConnect() {
+        await connectDB()
     }
 
     /**

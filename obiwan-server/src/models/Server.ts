@@ -4,6 +4,7 @@ import config  from "../config";
 import { connectDB } from "../db/config";
 
 import routerGames from "../routes/diceGame.routes";
+import routerError404 from "../routes/error404.routes"
 
 /**
  * Server.
@@ -27,6 +28,7 @@ class Server {
     private app: Application
     private port: string
     private path = {
+        error404: "*",
         games: '/games'
     }
 
@@ -63,7 +65,8 @@ class Server {
      * - Enamble app to use the routes declarates.
      */
     routes() {
-        this.app.use(this.path.games, routerGames)
+        this.app.use(this.path.games, routerGames),
+        this.app.use(this.path.error404, routerError404)
     }
     
     /**

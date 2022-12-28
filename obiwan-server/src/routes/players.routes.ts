@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getAllPlayers, getOnePlayer } from "../controllers/players.controller";
+import { getAllPlayers, getOnePlayer, updateName } from "../controllers/players.controller";
 
 /** 
  * router
@@ -21,11 +21,19 @@ const router = Router()
 router.get("/get-all-players", getAllPlayers)
 
 /** 
- * getOnePlayer .
+ * getOnePlayer.
  * 
  * Purpose:
  * - *GET => Get one players.
  */
 router.get("/get-player/:id", getOnePlayer)
+
+/** 
+ * updateName.
+ * 
+ * Purpose:
+ * - *PUT => Update player firstName and lastName.
+ */
+router.put("/update-player/:id", updateName)
 
 export default router

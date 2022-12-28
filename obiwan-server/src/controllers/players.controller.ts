@@ -1,5 +1,6 @@
 import { Request, Response } from "express"
 import GetPlayer from "../helpers/getPlayers"
+import UpdatePlayerName from "../helpers/updatePlayerName"
 
 /** 
  * getAllPlayer.
@@ -62,11 +63,19 @@ export const getOnePlayer = async (req: Request, res: Response) => {
  */
 export const updateName = (req: Request, res: Response) => {
     try {
+        const id = req.params.id
+        const { firstName, lastName } = req.body
         
+        const updatePlayerName = new UpdatePlayerName(id, firstName, lastName)
+
+        res.status(201).json({
+            msg: "Player updated",
+            updatePlayerName
+        })
     } catch (error) {
         console.error(error)
-        res.status(500).json({
-            msg: "Error 500 - Internal Server Error"
+        res.status(400).json({
+            msg: "Player does't exist"
         })
     }
 }

@@ -8,6 +8,7 @@
  * - https://www.typescriptlang.org/docs/handbook/interfaces.html
  */
 export interface IPlayer {
+    save(): string;
     _id: string,
     firstName: string,
     lastName: string,

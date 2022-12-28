@@ -1,4 +1,6 @@
 import { Request, Response } from "express"
+import RollGame from "../helpers/diceGame"
+
 
 /** 
  * playerRollDice.
@@ -9,11 +11,19 @@ import { Request, Response } from "express"
  * References:
  * - https://dev.to/ericchapman/nodejs-express-part-5-routes-and-controllers-55d3
  */
-export const playerRollDice = (req: Request, res: Response) => {
+export const playerRollDice = async (req: Request, res: Response) => {
     try {
-        
+        const id = req.params.id
+        const game = await new RollGame(id)
+        const playerRollDices = await game.playerRollDice
+
+        res.status(201).json({
+            playerRollDices
+        })
     } catch (error) {
-        
+        res.status(400).json({
+            msn: "The ID enteres isn't valid!"
+        })
     }
 }
 

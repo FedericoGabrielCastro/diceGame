@@ -50,6 +50,25 @@ class RollGame {
 
         await player.save()
     }
+
+    /**
+     * generalRanking.
+     * 
+     * Purpose:
+     * - Getting general ranking game.
+     */
+    static async generalRanking(){
+        const players = await Player.find({}).sort({wonRate: -1}) // Order wonRate from best to worst
+
+        return players
+    }
+
+    /**
+     * generalRanking.
+     * 
+     * Purpose:
+     * - Getting general ranking game.
+     */
 }
 
 export default RollGame

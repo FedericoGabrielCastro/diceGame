@@ -36,11 +36,17 @@ export const playerRollDice = async (req: Request, res: Response) => {
  * References:
  * - https://dev.to/ericchapman/nodejs-express-part-5-routes-and-controllers-55d3
  */
-export const generalRanking = (req: Request, res: Response) => {
+export const generalRanking = async (req: Request, res: Response) => {
     try {
-        
+        const ranking = await RollGame.generalRanking()
+
+        res.status(201).json({
+            ranking
+        })
     } catch (error) {
-        
+        res.status(500).json({
+            msn: "Error 500 - Internal Server Error"
+        })
     }
 }
 

@@ -18,7 +18,7 @@ const PrivateRoute = ({children}) => {
     // TODO: Implent jwt here.
     const [auth, setAuth] = useState(false)
 
-    if(!auth) return <Navigate to="/login" replace />
+    if(!auth) return <Navigate to="/auth" replace />
 
     return <> {children} </>
 }

@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import PrivateRoute from "./PrivateRoute"
 import GamePage from "../pages/gamePage/GamePage"
 import AuthPage from "../pages/authPage/AuthPage"
+import RegisterView from "../views/registerView/RegisterView"
+import LoginView from "../views/loginView/LoginView"
 
 /** 
  * ProviderRoutes.
@@ -26,8 +28,12 @@ const ProviderRoutes = () => {
                         <GamePage />
                     </PrivateRoute>
                 } />
-                <Route path="/login" element={<AuthPage />} />
-                <Route path="*" element={<Navigate to="/" />} />
+                <Route path="/auth" element={<AuthPage />}>
+                    <Route path="login" element={<LoginView />} />
+                    <Route path="register" element={<RegisterView />} />
+                    <Route path="/auth" element={<Navigate to="/auth/login" replace />} />
+                </Route>
+                <Route path="*" element={<Navigate to="/" replace/>} />
             </Routes>
         </BrowserRouter>
     )

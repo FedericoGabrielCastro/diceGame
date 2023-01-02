@@ -16,7 +16,7 @@ import { Navigate } from "react-router-dom"
 const PrivateRoute = ({children}) => {
 
     // TODO: Implent jwt here.
-    const [auth, setAuth] = useState(false)
+    const [auth, setAuth] = useState(true)
 
     if(!auth) return <Navigate to="/auth" replace />
 
